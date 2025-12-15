@@ -1,39 +1,35 @@
 export default {
 	namespaced: true,
 	state: {
-		messages: []
+		messages: [],
+		autoIncrement: 0
 	},
 	getters: {
 		all: state => state.messages
 	},
 	mutations: {
-		add: (state, { id, text, timeout }) => state.messages.push({ id, text, timeout }),
-		remove: (state, { id }) => {
+		add: (state, { text, timeout }) => state.messages.push({ id: ++state.autoIncrement, text, timeout }),
+		remove: (state, id) => {
 			for (let i = 0; i < state.messages.length; i++) {
-
-				let { id: idM }  = state.messages[i];
-
-				if (id === idM) {
+				if (state.messages[i].id === id) {
 					state.messages.splice(i, 1);
 					break;
 				}
 			}
-		},
+		}
 	},
 	actions: {
-		add({ commit }, payload) {
-			if (!('id' in payload)) {
-				payload.id = Math.random();
-			}
+		add({ commit, state }, payload) {
 			commit('add', payload);
+			const id = state.autoIncrement;
 			if ("timeout" in payload) {
 				setTimeout(() => {
-					commit('remove', payload);
+					commit('remove', id);
 				}, payload.timeout);
 			}
 		},
-		remove({ commit }, payload) {
-			commit('remove', payload)
+		remove({ commit }, { id }) {
+			commit('remove', id);
 		}
 	}
 }
