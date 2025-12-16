@@ -12,7 +12,8 @@
                     <span v-if="!alert.timeout">
                         <br></br>
                         <span>Вы можете </span>
-                        <a href>
+                        <a href=""
+                           @click.prevent="this.$router.go(0);">
                             обновить страницу
                         </a>
                     </span>
@@ -34,7 +35,7 @@
             ...mapGetters('alerts', { alerts: 'all' })
         },
         methods: {
-            ...mapActions("alerts", { removeAlert: "remove"}),
+            ...mapActions('alerts', { removeAlert: 'remove'}),
 		}
 
     }

@@ -13,6 +13,9 @@ export const interceptorsImitationError = function(error) {
     console.log(config)
 
     if ('errorAlert' in config) {
+        if(config.errorAlert.isCriticalError == true) {
+            store.dispatch('alerts/setCriticalError', true, { root: true });
+        }
         store.dispatch('alerts/add', {
             text: 'Ошибка ответа от сервера ' + config.errorAlert.text,
             timeout: config.errorAlert.timeout,

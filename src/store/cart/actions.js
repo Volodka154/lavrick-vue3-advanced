@@ -23,6 +23,7 @@ export default {
 				text: "НЕОБРАБОТАННАЯ ошибка загрузки корзины",
 				closable: true
 			}, { root: true });
+			dispatch('alerts/setCriticalError', true, { root: true });
 		}
 	},
 	async add({ state, getters, commit, dispatch }, { id }){

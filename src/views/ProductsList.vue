@@ -10,7 +10,9 @@
 				<div class="card-body">
 					<h3>{{ product.title }}</h3>
 					<div>{{ product.price }}</div>
-					<router-link :to="{name: 'products-item', params: {id: product.id}}">
+					<router-link 
+					 	:to="{name: 'products-item', params: {id: product.id}}"
+						:disabled="isDisabledButton">
 						Get more
 					</router-link>
 					<hr>
@@ -31,7 +33,13 @@
 			ProductControls
 		},
 		computed: {
-			...mapGetters('products', { products: 'all' })
+			...mapGetters('products', { products: 'all' }),
+			...mapGetters('alerts', { isCriticalError: 'isCriticalError' }),
+		},
+		methods: {
+			isDisabledButton() {
+				return this.isCriticalError;
+			}
 		}
 	}
 </script>

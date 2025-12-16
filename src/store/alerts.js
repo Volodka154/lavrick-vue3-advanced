@@ -2,10 +2,12 @@ export default {
 	namespaced: true,
 	state: {
 		messages: [],
-		autoIncrement: 0
+		autoIncrement: 0,
+		isCriticalError: false
 	},
 	getters: {
-		all: state => state.messages
+		all: state => state.messages,
+		isCriticalError: state => state.isCriticalError,
 	},
 	mutations: {
 		add: (state, payload) => state.messages.push({ id: ++state.autoIncrement, ...payload }),
@@ -21,6 +23,9 @@ export default {
 			}
 		}
 		*/
+		setCriticalError(state, value) { 
+			state.isCriticalError = value 
+		},
 	},
 	actions: {
 		add({ commit, state }, payload) {
@@ -34,6 +39,9 @@ export default {
 		},
 		remove({ commit }, { id }) {
 			commit('remove', id);
-		}
+		},
+		setCriticalError({ commit }, value) { 
+			commit('setCriticalError', value) 
+		},
 	}
 }

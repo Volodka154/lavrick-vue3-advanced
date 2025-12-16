@@ -6,7 +6,8 @@ const ERR_PROBABILITY = 0.3;
 export async function load(token){
 	const errorAlert = {
 		text: 'при загрузке страницы',
-		closable: true
+		closable: true,
+		isCriticalError: true
 	};
 
 	if (hasEnternet) {

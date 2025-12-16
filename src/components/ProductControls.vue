@@ -4,7 +4,7 @@
 				class="btn btn-danger" 
 				@click="remove({ id })"
 				v-if="inCart"
-				:disabled="inProccess"
+				:disabled="isDisabledButton"
 		>
 			Remove
 		</button>
@@ -12,7 +12,7 @@
 				class="btn btn-success" 
 				@click="add({ id })"
 				v-else
-				:disabled="inProccess"
+				:disabled="isDisabledButton"
 		>
 			Add to cart
 		</button>
@@ -21,13 +21,13 @@
 				<hr>
 				<button type="button" 
 							class="btn btn-warning"
-							:disabled="inProccess || cnt < 2"
+							:disabled="isDisabledButton || cnt < 2"
 							@click="setCnt({ id, cnt: cnt - 1})"
 				>-</button>
 				<strong class="mx-1">{{ cnt }}</strong>
 				<button type="button" 
 							class="btn btn-success"
-							:disabled="inProccess"
+							:disabled="isDisabledButton"
 							@click="setCnt({ id, cnt: cnt + 1})"
 				>+</button>
 			</div>
@@ -47,6 +47,8 @@
 				inProccessProxy: 'inProccess',
 				cntProxy: 'itemCnt'
 			}),
+			...mapGetters('alerts', { isCriticalError: 'isCriticalError' }),
+
 			cnt(){
 				return this.cntProxy(this.id);
 			},
@@ -55,6 +57,9 @@
 			},
 			inProccess(){
 				return this.inProccessProxy(this.id);
+			},
+			isDisabledButton() {
+				return this.inProccess || this.isCriticalError;
 			}
 		},
 		methods: {
