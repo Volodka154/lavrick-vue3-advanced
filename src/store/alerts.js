@@ -8,7 +8,10 @@ export default {
 		all: state => state.messages
 	},
 	mutations: {
-		add: (state, { text, timeout }) => state.messages.push({ id: ++state.autoIncrement, text, timeout }),
+		add: (state, payload) => state.messages.push({ id: ++state.autoIncrement, ...payload }),
+		remove: (state, id) => state.messages = state.messages.filter(m => m.id !== id),
+		/*
+		оба варианта одинаково работают
 		remove: (state, id) => {
 			for (let i = 0; i < state.messages.length; i++) {
 				if (state.messages[i].id === id) {
@@ -17,12 +20,13 @@ export default {
 				}
 			}
 		}
+		*/
 	},
 	actions: {
 		add({ commit, state }, payload) {
 			commit('add', payload);
 			const id = state.autoIncrement;
-			if ("timeout" in payload) {
+			if ("timeout" in payload && payload.timeout > 0) {
 				setTimeout(() => {
 					commit('remove', id);
 				}, payload.timeout);

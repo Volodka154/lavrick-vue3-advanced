@@ -6,19 +6,19 @@ export async function all(){
 	const data = [
 		{
 			id: 0,
-			title: "Смартфон 1",
-			price: 5000,
+			title: "Телефон 1",
+			price: 3000,
 			rest: 5,
 		}, 
 		{
 			id: 1,
-			title: "Смартфон 2",
-			price: 5000,
+			title: "Телефон 2",
+			price: 4000,
 			rest: 5,
 		}, 
 		{
 			id: 2,
-			title: "Смартфон 3",
+			title: "Телефон 3",
 			price: 5000,
 			rest: 5,
 		}		

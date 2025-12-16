@@ -17,30 +17,20 @@ const store = createStore({
 });
 
 addErrorHandler(function(error) {
-	console.log(error.response.config);
+
 	let config = error.response.config;
+
 	if ('errorAlert' in config) {
 		store.dispatch('alerts/add', {
-			text: 'Ошибка ответа от сервера ' + config.errorAlert 
+			text: 'Ошибка ответа от сервера ' + config.errorAlert.text,
+			timeout: config.errorAlert.timeout,
+			closable: config.errorAlert.closable
 		});
-		return false;
+		return { data: false };
 	}
-
-	Promise.reject(error);
-});
-
-/*addErrorHandler(function(error){
-	let config = error.response.config;
-
-	if('errorAlert' in config){
-		store.dispatch('alerts/add', { 
-			text: 'Ошибка ответа от сервера ' + config.errorAlert
-		});
-
-		return false;
-	}
-	
+	// В случае, если нет интернета, то errorAlert не установится и прокинет ошибку дальше
+	// Обрабатывать ее будет уже блок catch
 	return Promise.reject(error);
 });
-*/
+
 export default store;

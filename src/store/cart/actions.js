@@ -5,19 +5,23 @@ export default {
 		let savedToken = localStorage.getItem('cartToken');
 
 		let token, needUpdate, cart = null;
-		//let { token, needUpdate, cart } = await cartApi.load(savedToken);
-		try {
-			({ token, needUpdate, cart } = await cartApi.load(savedToken));
 
-			if(needUpdate){
-				localStorage.setItem('cartToken', token);
+		try {
+			let res = await cartApi.load(savedToken);
+			if (res) {
+				({ token, needUpdate, cart } = res);
+	
+				if(needUpdate){
+					localStorage.setItem('cartToken', token);
+				}
+					
+				commit('set', { cart, token });
 			}
-				
-			commit('set', { cart, token });
 		} catch(e) {
 			console.error("Ошибка загрузки корзины", e);
 			dispatch("alerts/add", { 
-				text: "Ошибка загрузки корзины"
+				text: "Ошибка загрузки корзины",
+				closable: true
 			}, { root: true });
 		}
 	},
@@ -26,7 +30,8 @@ export default {
 			commit('startProccess', id);
 			try {
 				let res = await cartApi.add(state.token, id)
-						
+
+				console.log("res", res);
 				if(res === true){
 					commit('add', { id });		
 				}	

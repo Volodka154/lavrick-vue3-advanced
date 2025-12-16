@@ -17,6 +17,7 @@
                         </a>
                     </span>
                     <button
+                        v-if="alert.closable"
                         type="button"
                         class="btn-close btn-sm ms-auto position-absolute top-0 end-0 m-1"
                         @click="removeAlert(alert)"
