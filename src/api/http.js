@@ -5,7 +5,7 @@ const instance = axios.create({
 	timeout: 10000
 });
 
-export function addErrorHandler(fn) {
-	instance.interceptors.response.use(r => r, fn)
+export function addResponseHandler(success, error) {
+	instance.interceptors.response.use(success, error)
 }
 export default instance;

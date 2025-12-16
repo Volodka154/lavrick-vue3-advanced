@@ -1,9 +1,13 @@
 import http from '@/api/http';
+import { hasEnternet } from '@/api/enternet-access';
 
 export async function all(){
-	//let { data } = await http.get('products/all.php');
-	//return data;
+	if (hasEnternet) {
+		let { data } = await http.get('products/all.php');
+		return data;
+	}
 	const data = [
+		
 		{
 			id: 0,
 			title: "Телефон 1",

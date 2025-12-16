@@ -7,9 +7,9 @@ export default {
 		let token, needUpdate, cart = null;
 
 		try {
-			let res = await cartApi.load(savedToken);
+			let { res, data } = await cartApi.load(savedToken);
 			if (res) {
-				({ token, needUpdate, cart } = res);
+				({ token, needUpdate, cart } = data);
 	
 				if(needUpdate){
 					localStorage.setItem('cartToken', token);
@@ -29,10 +29,9 @@ export default {
 		if(getters.canAdd(id)){
 			commit('startProccess', id);
 			try {
-				let res = await cartApi.add(state.token, id)
+				let { res, data } = await cartApi.add(state.token, id)
 
-				console.log("res", res);
-				if(res === true){
+				if(res && data){
 					commit('add', { id });		
 				}	
 			} catch(e) {
@@ -50,9 +49,9 @@ export default {
 		if(getters.canUpdate(id)){
 			commit('startProccess', id);
 			try {
-				let res = await cartApi.remove(state.token, id)
+				let { res, data } = await cartApi.remove(state.token, id)
 
-				if(res === true){
+				if(res && data){
 					commit('remove', { ind: getters.index(id) });
 				}
 			} catch(e) {
@@ -71,9 +70,9 @@ export default {
 			commit('startProccess', id);
 			try {
 				let validCnt = Math.max(1, cnt);
-				let res = await cartApi.change(state.token, id, validCnt)
+				let { res, data } = await cartApi.change(state.token, id, validCnt)
 				
-				if(res === true){
+				if(res && data){
 					commit('setCnt', { ind: getters.index(id), cnt: validCnt });
 				}
 			} catch(e) {

@@ -1,6 +1,6 @@
 import http from '@/api/http';
+import { hasEnternet } from '@/api/enternet-access';
 
-const hasEnternet = false;
 const ERR_PROBABILITY = 0.3;
 
 export async function load(token){
