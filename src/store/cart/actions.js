@@ -18,9 +18,9 @@ export default {
 				commit('set', { cart, token });
 			}
 		} catch(e) {
-			console.error("Ошибка загрузки корзины", e);
+			console.error("НЕОБРАБОТАННАЯ ошибка загрузки корзины", e);
 			dispatch("alerts/add", { 
-				text: "Ошибка загрузки корзины",
+				text: "НЕОБРАБОТАННАЯ ошибка загрузки корзины",
 				closable: true
 			}, { root: true });
 		}
@@ -35,9 +35,9 @@ export default {
 					commit('add', { id });		
 				}	
 			} catch(e) {
-				console.error("Ошибка добавления товара", e);
+				console.error("НЕОБРАБОТАННАЯ ошибка добавления товара", e);
 				dispatch("alerts/add", {
-					text: "Ошибка добавления товара", 
+					text: "НЕОБРАБОТАННАЯ ошибка добавления товара", 
 					timeout: 5000, 
 				}, { root: true });
 			} finally {
@@ -55,9 +55,9 @@ export default {
 					commit('remove', { ind: getters.index(id) });
 				}
 			} catch(e) {
-				console.error("Ошибка удаления товара", e);
+				console.error("НЕОБРАБОТАННАЯ ошибка удаления товара", e);
 				dispatch("alerts/add", { 
-					text: "Ошибка удаления товара", 
+					text: "НЕОБРАБОТАННАЯ ошибка удаления товара", 
 					timeout: 5000, 
 				}, { root: true });
 			} finally {
@@ -76,9 +76,9 @@ export default {
 					commit('setCnt', { ind: getters.index(id), cnt: validCnt });
 				}
 			} catch(e) {
-				console.error("Ошибка изменения количества товара", e);
+				console.error("НЕОБРАБОТАННАЯ ошибка изменения количества товара", e);
 				dispatch("alerts/add", { 
-					text: "Ошибка изменения количества товара", 
+					text: "НЕОБРАБОТАННАЯ ошибка изменения количества товара", 
 					timeout: 5000, 
 				}, { root: true });
 			} finally {

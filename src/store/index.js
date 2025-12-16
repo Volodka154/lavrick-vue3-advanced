@@ -24,7 +24,6 @@ addResponseHandler(
 		return response;
 	},
 	function(error) {
-
 		let config = error.response.config;
 
 		if ('errorAlert' in config) {
@@ -35,7 +34,7 @@ addResponseHandler(
 			});
 			return { data: { res: false, data: null } };
 		}
-		// В случае, если нет интернета, то errorAlert не установится и прокинет ошибку дальше
+	    // В случае, если это необрабатываемая ошибка, то она прокидывается дальше
 		// Обрабатывать ее будет уже блок catch
 		return Promise.reject(error);
 	}
